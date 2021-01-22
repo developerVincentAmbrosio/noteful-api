@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require test/setup.js",
+    "migrate": "postgrator --config postgrator-config.js",
     "dev": "nodemon src/server.js",
     "start": "node src/noteful.js",
     "predeploy": "npm audit",
@@ -21,6 +22,7 @@
     "knex": "^0.21.16",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
-    "pg": "^8.5.1"
+    "pg": "^8.5.1",
+    "postgrator-cli": "^4.0.0"
   }
 }
