@@ -12,14 +12,22 @@ const FoldersService = {
             return rows[0]
         })
     },
-
-    getById(knex, id) {
+//BELOW IS CORRECTED SCRIPT BY THINKCHAT EXPERT
+    getById(knex, folder_id) {
         return knex
         .from('noteful_folders')
         .select('*')
-        .where('id', id)
+        .where('id', parseInt(folder_id, 10))
         .first()
     },
+    //ORIGINAL SCRIPT
+    // getById(knex, id) {
+    //     return knex
+    //     .from('noteful_folders')
+    //     .select('*')
+    //     .where('id', id)
+    //     .first()
+    // },
 
     deleteFolder(knex, id) {
         return knex('noteful_folders')
