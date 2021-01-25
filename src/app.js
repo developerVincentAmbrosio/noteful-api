@@ -1,4 +1,3 @@
-require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -14,6 +13,9 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
+
+app.use('/notes', require('./notes/notes-router'))
+app.use('/folders', require('./folders/folders-router'))
 
 app.get('/', (req, res) => {
     res.send('Hello, boilerplate!')
