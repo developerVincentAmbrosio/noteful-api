@@ -1,4 +1,3 @@
-require('dotenv').config();
 const path = require('path')
 const express = require('express')
 const xss = require('xss')
@@ -35,11 +34,8 @@ NotesRouter
           error: { message: `${key} is required` }
         })
 
-    NotesService.insertNote(
-      req.app.get('db'),
-      newNote
-    )
-      .then(article => {
+    NotesService.insertNote(req.app.get('db'), newNote)
+      .then(note => {
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${note.id}`))
