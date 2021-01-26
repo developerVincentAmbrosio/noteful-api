@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+require('dotenv').config();
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
