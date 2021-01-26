@@ -61,7 +61,7 @@ foldersRouter
     res.json(serializeFolder(res.folder))
   })
   .delete((req, res, next) => {
-    FoldersService.deleteArticle(
+    FoldersService.deleteFolder(
       req.app.get('db'),
       req.params.folder_id
     )
@@ -71,14 +71,14 @@ foldersRouter
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { id, folder_name } = req.body
-    const folderToUpdate = { id, folder_name }
+    const { folder_name } = req.body
+    const folderToUpdate = { folder_name }
 
     const numberOfValues = Object.values(folderToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must content either name or an ID`
+          message: `Please name the folder`
         }
       })
 

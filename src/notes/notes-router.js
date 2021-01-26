@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path')
 const express = require('express')
 const xss = require('xss')
@@ -7,10 +8,10 @@ const NotesRouter = express.Router()
 const jsonParser = express.json()
 
 const serializeNote = note => ({
-//  id: xss(noteful_notes.id),
+  id: xss(note.id),
   name: xss(note.note_name),
-//  modified: xss(note.modified),
-//  folder: xss(note.folderid),
+  modified: xss(note.modified),
+  folder: xss(note.folderid),
   content: xss(note.content),
 })
 
@@ -25,15 +26,20 @@ NotesRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { id, name, modified, folder, content } = req.body
-    const newNote = { id, name, modified, folder, content }
+    const { name, folder, content } = req.body
+    const newNote = { name, folder, content }
 
     for (const [key, value] of Object.entries(newNote))
       if (value == null)
         return res.status(400).json({
-          error: { message: `Missing '${key}' in request body` }
+          error: { message: `${key} is required` }
         })
-      .then(note => {
+
+    NotesService.insertNote(
+      req.app.get('db'),
+      newNote
+    )
+      .then(article => {
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${note.id}`))
@@ -74,14 +80,14 @@ NotesRouter
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { id, name, modified, folder, content } = req.body
-    const noteToUpdate = { id, name, modified, folder, content }
+    const { name, folder, content } = req.body
+    const noteToUpdate = { name, folder, content }
 
     const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must content either name or an ID`
+          message: `Request body must content ${key}`
         }
       })
 
