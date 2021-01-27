@@ -15,8 +15,8 @@ app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
 
-app.use('/notes', require('./notes/notes-router'))
-app.use('/folders', require('./folders/folders-router'))
+app.use('/api/notes', require('./notes/notes-router'))
+app.use('/api/folders', require('./folders/folders-router'))
 
 app.get('/', (req, res) => {
     res.send('Hello, boilerplate!')

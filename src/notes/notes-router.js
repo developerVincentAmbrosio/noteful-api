@@ -25,8 +25,8 @@ NotesRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { name, folder, content } = req.body
-    const newNote = { name, folder, content }
+    const { note_name, folderid, content } = req.body
+    const newNote = { note_name, folderid, content }
 
     for (const [key, value] of Object.entries(newNote))
       if (value == null)
@@ -76,14 +76,14 @@ NotesRouter
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { name, folder, content } = req.body
-    const noteToUpdate = { name, folder, content }
+    const { note_name, folderid, content } = req.body
+    const noteToUpdate = { note_name, folderid, content }
 
     const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must content ${key}`
+          message: `${key} must have content`
         }
       })
 
