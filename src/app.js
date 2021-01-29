@@ -19,7 +19,7 @@ app.use('/api/notes', require('./notes/notes-router'))
 app.use('/api/folders', require('./folders/folders-router'))
 
 app.get('/', (req, res) => {
-    res.send('Hello, boilerplate!')
+    res.send('Hello, world!')
 })
 
 app.use(function errorHandler(error, req, res, next) {
